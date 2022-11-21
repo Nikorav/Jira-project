@@ -1,0 +1,33 @@
+@import 'src/styles';
+
+$boardWidth: calc(100vw);
+$boardHeight: calc(100vh - 90px);
+$boardPadding: 42px 30px;
+
+.main-container {
+  display: flex;
+}
+
+button {
+  position: absolute;
+  z-index: 999;
+  left: -12px;
+  top: 20px;
+}
+
+.board {
+  width: $boardWidth;
+  height: $boardHeight;
+}
+
+.board__background {
+  position: absolute;
+  width: $boardWidth;
+  height: $boardHeight;
+  z-index: -1;
+}
+
+.main-scroll {
+  height: inherit;
+  max-height: none;
+}

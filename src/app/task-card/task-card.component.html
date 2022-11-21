@@ -1,0 +1,28 @@
+<div class="card__wrap">
+  <div class="card" *ngIf="card">
+    <mat-card-title class="card__header">
+      {{card.name}}
+      <div class="card__header-icons">
+        <mat-icon class="card__icon" (click)="openUpdateCardDialog(card)">update</mat-icon>
+        <mat-icon class="card__icon" (click)="deleteCard(card.id)">delete_outline</mat-icon>
+      </div>
+    </mat-card-title>
+    <mat-card-content (click)="openFullCard(card)">
+      <div class="card__description" *ngIf="card.description">
+        <span>{{shortDescription(card.description)}}</span>
+      </div>
+      <div class="card__footer">
+        <mat-chip-list>
+          <mat-chip class="chip__priority"
+                    [class.critical]="card.priority === status.Critical"
+                    [class.blocked]="card.priority === status.Blocked">
+            {{card.priority}}
+          </mat-chip>
+        </mat-chip-list>
+        <ng-container *ngFor="let user of (users$ | async)">
+          <app-avatar *ngIf="user.id === card.memberID" [name]="user.name" [avatarUrl]="user.avatarURL"></app-avatar>
+        </ng-container>
+      </div>
+    </mat-card-content>
+  </div>
+</div>

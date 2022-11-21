@@ -1,0 +1,92 @@
+@import 'src/styles';
+
+$logoFont: var(--tui-font-heading-1);
+$headerBackground: var(--tui-primary);
+$headerTextColor: #FDF2E4;
+$headerTextHoverColor: rgba(253, 242, 228, 0.6);
+
+header {
+  background: $headerBackground;
+  box-shadow: $boxShadow;
+  padding: 0 30px;
+}
+
+.wrapper {
+  height: 90px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 54px;
+}
+
+.logo__title {
+  font: $logoFont;
+  color: $headerTextColor;
+  margin: 0;
+}
+
+.menu {
+  display: none;
+}
+
+.menu__link {
+  display: none;
+}
+
+.menu__create-board {
+  display: none;
+}
+
+app-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 77px;
+}
+
+app-avatar {
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+@media screen and (max-width: 1200px) {
+
+  mat-icon {
+    color: $headerTextColor;
+  }
+
+  .menu {
+    display: block;
+    margin-left: auto;
+    margin-right: 12px;
+  }
+
+  app-button,
+  app-avatar {
+    display: none;
+  }
+
+  .menu__create-board {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .logo__title {
+    font: var(--tui-font-heading-3);
+  }
+
+  app-navigation {
+    display: none;
+  }
+
+  .menu__link {
+    display: block;
+  }
+}

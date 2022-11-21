@@ -1,0 +1,12 @@
+.statistics {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  padding: 30px 30px 0;
+}
+
+.statistics__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 8px;
+}

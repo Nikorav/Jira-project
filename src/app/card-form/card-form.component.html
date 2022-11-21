@@ -1,0 +1,153 @@
+<tui-scrollbar [hidden]="true">
+  <form [formGroup]="cardForm">
+
+    <h3 class="tui-form__header tui-form__header_margin-top_none">
+      {{formHeader}}
+    </h3>
+
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Card Name</mat-label>
+        <input matInput autocomplete="off" placeholder="Input card name" [formControlName]="formControls.name" [value]="card?.name">
+        <mat-error *ngIf="isInputControlValid(formControls.name)">
+          Card name is required. Max length is 16
+        </mat-error>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput
+                  placeholder="Description of your task"
+                  [formControlName]="formControls.description"
+                  [value]="card?.description"
+                  (keyup)="textValueValid(formControls.description)">
+        </textarea>
+        <mat-error *ngIf="isControlValid(formControls.description)">
+          Max length is 1200
+        </mat-error>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a list</mat-label>
+        <mat-select [formControlName]="formControls.list" required>
+          <mat-option *ngFor="let list of lists" [value]="list.id">{{list.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="isControlValid(formControls.list)">Please choose a list</mat-error>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a priority</mat-label>
+        <mat-select [formControlName]="formControls.priority" required>
+          <mat-option *ngFor="let priority of priorities" [value]="priority">{{priority}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="isControlValid(formControls.priority)">Please choose a priority</mat-error>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a member</mat-label>
+        <mat-select [formControlName]="formControls.member" required>
+          <mat-option *ngFor="let member of users" [value]="member.id">
+            {{member.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="isControlValid(formControls.member)">Please choose a member</mat-error>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="datepicker" appearance="fill">
+        <mat-label>Choose a due date</mat-label>
+        <input matInput
+               autocomplete="off"
+               placeholder="MM/DD/YYYY"
+               [matDatepickerFilter]="myFilter"
+               [matDatepicker]="picker"
+               [formControlName]="formControls.dueDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="isControlValid(formControls.dueDate)">
+          Invalid value
+        </mat-error>
+      </mat-form-field>
+    </p>
+
+    <ng-container *ngIf="isCreating">
+      <div>
+        <label class="label__add-image" for="file" [style]="labelStyle">
+          <mat-icon>attach_file</mat-icon>
+          Choose image(s)
+        </label>
+        <input
+          class="input__add-image"
+          type="file"
+          id="file"
+          [disabled]="isDisable"
+          (change)="onFileSelected($event)"
+          autocomplete="off"
+          accept=".jpg, .jpeg, .png"
+          multiple
+        />
+      </div>
+
+      <div class="result__container">
+        <ng-container *ngFor="let name of filesNames; trackBy: trackByFn">
+          <div class="success__container">
+            <p class="success__text">
+              <mat-icon>done</mat-icon>
+              {{name}}</p>
+          </div>
+        </ng-container>
+
+        <ng-container *ngFor="let name of errorsFilesNames; trackBy: trackByFn">
+          <div class="error__container">
+            <p class="error__text">
+              <mat-icon>error_outline</mat-icon>
+              {{name}}
+            </p>
+          </div>
+        </ng-container>
+      </div>
+
+      <progress *ngIf="isDisable" max="100" [value]="progress"></progress>
+
+      <p class="image__error" [style]="formatErrorStyle">You can only upload JPEG, JPG and PNG formats</p>
+      <p class="image__error" [style]="sizeErrorStyle">You can upload images up to 5MB in size</p>
+    </ng-container>
+
+    <div>
+      <button
+        tuiButton
+        mat-dialog-close
+        class="tui-form__button"
+        type="submit"
+        [size]="buttonSize"
+        [appearance]="buttonAppearance.Primary"
+        [disabled]="cardForm.invalid || isDisable"
+        (click)="isCreating ? submitForm() : submitUpdatingForm(card?.id)"
+      >
+        Submit
+      </button>
+
+      <button
+        tuiButton
+        mat-dialog-close
+        class="tui-form__button"
+        type="button"
+        [size]="buttonSize"
+        [appearance]="buttonAppearance.Secondary"
+      >
+        Cancel
+      </button>
+    </div>
+
+  </form>
+</tui-scrollbar>

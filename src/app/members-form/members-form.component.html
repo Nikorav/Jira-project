@@ -1,0 +1,50 @@
+<form [formGroup]="membersForm">
+  <h3 class="tui-form__header tui-form__header_margin-top_none">
+    Add members
+  </h3>
+
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Board Members</mat-label>
+      <mat-select #select [formControlName]="formControls.membersID" multiple>
+        <mat-option *ngFor="let user of (users$ | async)" [disabled]="assignees.includes(user.id)" [value]="user.id">{{user.name}}</mat-option>
+        <button
+          tuiButton
+          class="button__close"
+          [size]="buttonSize.s"
+          [appearance]="buttonAppearance.Primary"
+          (click)="select.close()"
+        >
+          Close
+        </button>
+      </mat-select>
+      <mat-error *ngIf="isControlValid(formControls.membersID)">Please choose a member</mat-error>
+    </mat-form-field>
+  </p>
+
+  <div>
+    <button
+      tuiButton
+      mat-dialog-close
+      class="tui-form__button"
+      type="submit"
+      [size]="buttonSize.l"
+      [appearance]="buttonAppearance.Primary"
+      [disabled]="membersForm.invalid"
+      (click)="submitForm()"
+    >
+      Submit
+    </button>
+
+    <button
+      tuiButton
+      mat-dialog-close
+      class="tui-form__button"
+      type="button"
+      [appearance]="buttonAppearance.Secondary"
+      [size]="buttonSize.l"
+    >
+      Cancel
+    </button>
+  </div>
+</form>

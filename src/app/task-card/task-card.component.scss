@@ -1,0 +1,80 @@
+@import 'src/styles';
+
+$cardBackground: var(--tui-secondary);
+$cardTextFont: var(--tui-font-heading-6);
+$statusNormalColor: var(--tui-positive);
+$statusCriticalColor: var(--tui-negative);
+$statusBlockedColor: var(--tui-warning-fill);
+
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.card__wrap {
+  touch-action: manipulation;
+  width: 100%;
+  cursor: grab;
+}
+
+.card {
+  margin: 10px 0 0;
+  background: $cardBackground;
+  display: flex;
+  grid-gap: 8px;
+  flex-grow: 1;
+  flex-direction: column;
+  border-radius: .125rem;
+  transition-property: all;
+  transition-duration: .1s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 10px;
+}
+
+.card__header {
+  display: flex;
+  font: $cardTextFont;
+  justify-content: space-between;
+}
+
+.card__header-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.card__icon {
+  cursor: pointer;
+}
+
+.card__description {
+  margin-bottom: 10px;
+}
+
+.mat-chip.mat-standard-chip::after {
+  background: transparent;
+}
+
+.chip__priority {
+  background: none;
+  border: 1px solid $statusNormalColor;
+  color: $statusNormalColor;
+}
+
+.critical {
+  border: 1px solid $statusCriticalColor;
+  color: $statusCriticalColor;
+}
+
+.blocked {
+  border: 1px solid $statusBlockedColor;
+  color: $statusBlockedColor;
+}
+
+.card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}

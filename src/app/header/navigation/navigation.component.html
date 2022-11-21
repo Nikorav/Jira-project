@@ -1,0 +1,7 @@
+<ng-container *ngFor="let link of navigationLinks">
+  <a class="nav__link" tuiLink [routerLink]="link.path">{{link.name}}</a>
+</ng-container>
+<app-button [content]=buttonContent
+            [buttonAppearance]="buttonAppearance"
+            (click)="openBoardDialog()"
+></app-button>

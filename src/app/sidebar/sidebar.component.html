@@ -1,0 +1,20 @@
+<div class="sidebar" *ngIf="drawer">
+  <h2 class="sidebar__title">Your boards</h2>
+  <mat-form-field appearance="fill">
+    <input matInput autocomplete="off" [(ngModel)]="searchValue" placeholder="Search a board">
+  </mat-form-field>
+  <tui-scrollbar [hidden]="true">
+    <div class="sidebar__boards">
+      <ng-container *ngFor="let board of boards | filter:searchValue; trackBy: trackByFn">
+        <div class="sidebar__board-name">
+          <a tuiLink
+             class="sidebar__board-title"
+             [routerLink]="board.id"
+             (click)="drawer.close()">
+            {{board.name}}
+          </a>
+        </div>
+      </ng-container>
+    </div>
+  </tui-scrollbar>
+</div>
